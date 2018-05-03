@@ -36,9 +36,19 @@ func oidToList(oid string) []int {
 	return result
 }
 
+type GoSNMPLogger struct {}
+
+func (l GoSNMPLogger) Print(v ...interface{}) {
+	log.Debug(v...)
+}
+
+func (l GoSNMPLogger) Printf(format string, v ...interface{}) {
+	log.Debugf(format, v...)
+}
+
 func ScrapeTarget(target string, config *config.Module) ([]gosnmp.SnmpPDU, error) {
 	// Set the options.
-	snmp := gosnmp.GoSNMP{}
+	snmp := gosnmp.GoSNMP{ Logger: GoSNMPLogger{} }
 	snmp.MaxRepetitions = config.WalkParams.MaxRepetitions
 	// User specifies timeout of each retry attempt but GoSNMP expects total timeout for all attemtps.
 	snmp.Retries = config.WalkParams.Retries

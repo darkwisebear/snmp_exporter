@@ -172,7 +172,7 @@ func (x *GoSNMP) sendOneRequest(packetOut *SnmpPacket,
 			break
 		}
 
-		x.logPrintf("SENDING PACKET: %#+v", *packetOut)
+		x.logPrintf("SENDING PACKET: %x", outBuf)
 		_, err = x.Conn.Write(outBuf)
 		if err != nil {
 			continue

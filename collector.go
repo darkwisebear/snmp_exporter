@@ -48,7 +48,7 @@ func (l GoSNMPLogger) Printf(format string, v ...interface{}) {
 
 func ScrapeTarget(target string, config *config.Module) ([]gosnmp.SnmpPDU, error) {
 	// Set the options.
-	snmp := gosnmp.GoSNMP{ Logger: GoSNMPLogger{} }
+	snmp := gosnmp.GoSNMP{ Logger: GoSNMPLogger{}, MaxRepetitions: 10 }
 	snmp.MaxRepetitions = config.WalkParams.MaxRepetitions
 	// User specifies timeout of each retry attempt but GoSNMP expects total timeout for all attemtps.
 	snmp.Retries = config.WalkParams.Retries
